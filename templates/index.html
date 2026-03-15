@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Security Verifier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .whatsapp-logo {
+            width: 70px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .warning-box {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+            border: 2px dashed #e74c3c;
+            padding: 12px;
+            border-radius: 12px;
+            background: #fff5f5;
+        }
+        .proceed-btn {
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            background-color: #25d366; /* Official WhatsApp Green */
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+        .proceed-btn:hover {
+            background-color: #128c7e;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="whatsapp-logo">
+            <h1>Official Verifier</h1>
+            <p style="font-size: 0.9rem; opacity: 0.9;">Professional Security Check</p>
+        </div>
+
+        <div class="content">
+            <form method="POST">
+                <textarea name="news" placeholder="Paste your WhatsApp message or link here..." required></textarea>
+                <button type="submit" style="cursor: pointer; background-color: #128c7e; color: white;">VERIFY AUTHENTICITY</button>
+            </form>
+
+            {% if report %}
+                <div class="result-area {{ 'is-fake' if report.status == 'FAKE' else 'is-real' }}">
+                    <div class="status-header" style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: bold;">
+                        <i class="fas {{ 'fa-check-circle' if report.status == 'REAL' else 'fa-shield-virus' }}"></i>
+                        {{ report.message }}
+                    </div>
+                    
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 15px 0;">
+                    
+                    <div class="details">
+                        <strong style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Office Security Verdict:</strong>
+                        <p style="font-size: 1rem; line-height: 1.5; margin-top: 8px; font-weight: 400; color: #333;">{{ report.details }}</p>
+                    </div>
+                    
+                    {% if report.status == 'REAL' %}
+                        <a href="{{ report.url }}" target="_blank" class="proceed-btn">
+                            OFFICIALLY GOOD - PROCEED
+                        </a>
+                    {% else %}
+                        <div class="warning-box">
+                            ⚠️ FAKE DETECTED: DO NOT PROCEED
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
