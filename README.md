@@ -4,6 +4,9 @@ Hackathon team repository for GenNova - [hackindia-team:openclaw-hackathon-hacki
 
 This project verifies suspicious WhatsApp messages and links.
 
+demo video link: https://youtu.be/VJT7iQ-J17E?si=GwfXDJ8ETsz1CXon
+
+
 Features:
 - Detects suspicious URLs
 - Checks HTTPS security
